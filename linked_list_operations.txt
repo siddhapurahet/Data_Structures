@@ -1,0 +1,153 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int data;
+  struct node *link;
+};
+
+struct node *root=NULL;
+int length;
+
+void Display(void);
+void append(void);
+int count(void);
+void Addatfront(void);
+void delete(void);
+
+void main()
+{
+    int ch;
+    while(1)
+    { 
+        printf("-----Linked List Operations-----\n");
+        printf("1.Append of Linked List\n");
+        printf("2.Add node at front\n");
+        printf("3.Display\n");
+        printf("4.Count Nodes\n");
+        printf("5.Delete Node\n");
+        printf("6.exit\n");
+        
+        printf("Enter your choice:");
+        scanf("%d",&ch);
+        
+        switch(ch)
+        {
+            case 1 : append();
+                     break;
+            case 2 : Addatfront();
+                     break;
+            case 3 : Display();
+                     break;
+            case 4 : length=count();
+                     printf("The length is : %d\n",length);
+                     break;
+            case 5 : delete();
+                     break;
+            case 6 : exit(1);
+            default: printf("Invalid choice");
+        }
+    }
+}
+    
+void append()
+{
+    struct node *temp;
+    temp=(struct node *)malloc(sizeof(struct node));
+    printf("Enter node");
+    scanf("%d",&temp->data);
+    temp->link=NULL;
+    if(root==NULL)
+    {
+        root=temp;
+    }
+    else
+    {
+        struct node *p;
+        p=root;
+        while(p->link!=NULL)
+        {
+            p=p->link;
+        }
+        p->link=temp;
+    }
+}
+int count()
+{
+    struct node *temp;
+    int len=0;
+    temp=root;
+    while(temp!=NULL)
+    {
+        len++;
+        temp=temp->link;
+    }
+    return len;
+}
+void Display()
+{
+    struct node *temp;
+    temp=root;
+    while(temp!=NULL)
+    {
+        printf("%d >> ",temp->data);
+        temp=temp->link;
+    }
+    printf("\n");
+}
+    
+void Addatfront()
+{
+    struct node *temp;
+    temp=(struct node *)malloc(sizeof(struct node));
+    printf("Enter node:");
+    scanf("%d",&temp->data);
+    temp->link=NULL;
+    if(root==NULL)
+    {
+        root=temp;
+    }
+    else
+    {
+        temp->link=root;
+        root=temp;
+    }
+}
+void delete()
+{
+    int z;
+    printf("Which node you want to delete:");
+    scanf("%d",&z);
+    if(z>count)
+    {
+        printf("NtPossible");
+    }
+    else if(z==1)
+    {
+        struct node *temp;
+        root=temp->link;
+        temp->link=NULL;
+        free(temp);
+    }
+    else
+    {
+     int i=1;
+     struct node *p,*q;
+     while(i<z-1)
+      {
+        p=p->link;
+        i++;
+      }
+     q=p->link;
+     p->link=q->link;
+     q->link=NULL;
+     free(q);
+    }
+}
+    
+    
+    
+    
+    
+    
+    
